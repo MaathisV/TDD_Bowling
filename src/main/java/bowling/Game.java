@@ -1,5 +1,8 @@
 package bowling;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
 	
 	private static final int NUMBER_OF_PINS = 10;
@@ -8,6 +11,29 @@ public class Game {
 	private int currentRoll = 0;
 	private boolean gameOver = false;
 
+	
+	public List<Integer> frameScores() {
+	    List<Integer> scores = new ArrayList<>();
+	    int rollIndex = 0;
+
+	    for (int frame = 0; frame < 10; frame++) {
+	        if (isStrike(rollIndex)) {
+	            int score = 10 + strikeBonus(rollIndex);
+	            scores.add(score);
+	            rollIndex += 1;
+	        } else if (isSpare(rollIndex)) {
+	            int score = 10 + spareBonus(rollIndex);
+	            scores.add(score);
+	            rollIndex += 2;
+	        } else {
+	            int score = rolls[rollIndex] + rolls[rollIndex + 1];
+	            scores.add(score);
+	            rollIndex += 2;
+	        }
+	    }
+
+	    return scores;
+	}
 
 	public void roll(int KnockedPins) {
 		if (gameOver) {

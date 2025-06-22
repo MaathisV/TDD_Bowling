@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
+
 class BowlingGameTest {
 	
 	Game g = new Game();
@@ -23,7 +26,7 @@ class BowlingGameTest {
 	private void rollStrike() {
 		g.roll(10);
 	}
-	
+	    
 	
 	@Test
 	void testGutterGame() {
@@ -80,4 +83,21 @@ class BowlingGameTest {
 		rollMany(13,2);
 	    assertThrows(IllegalStateException.class, () -> g.roll(3));
 	}
+	
+	
+	@Test
+	void ReturnFrameScore() {
+		rollStrike();
+	    g.roll(7);
+	    g.roll(2);
+	    rollMany(16, 0);
+
+	    List<Integer> scores = g.frameScores();
+
+	    assertEquals(10, scores.size());
+	    assertEquals(19, scores.get(0));
+	    assertEquals(9, scores.get(1));
+	    assertEquals(0, scores.get(2));
+	}
+
 }
