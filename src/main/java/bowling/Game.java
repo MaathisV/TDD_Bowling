@@ -56,6 +56,11 @@ public class Game {
 		return score;
 	}
 	
+	private int getTenthFrameFirstRollIndex(int rollIndex) {
+	    int tenthFrameStart = rollIndex - (isStrike(rollIndex - 1) ? 1 : 2);
+		return tenthFrameStart;
+	}
+	
 	private boolean isGameFinished() {
 	    int rollIndex = 0;
 	    int frame = 0;
@@ -71,8 +76,7 @@ public class Game {
 
 	    if (frame < 10) return false;
 
-	    // If 10 frames are played, check if bonus rolls are required
-	    int tenthFrameStart = rollIndex - (isStrike(rollIndex - 1) ? 1 : 2);
+	    int tenthFrameStart = getTenthFrameFirstRollIndex(rollIndex);
 
 	    if (isStrike(tenthFrameStart)) {
 	        return currentRoll >= rollIndex + 2;
