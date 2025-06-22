@@ -33,14 +33,14 @@ class BowlingGameTest {
 		int numRolls = 20;
 		int pins = 0;
 		rollMany(numRolls, pins);
-		int score = g.score();
+		int score = g.finalScore();
 		assertEquals(0, score);
 	}
 
 	@Test
 	void testAllOnesGame() {
 		rollMany(20, 1);
-		int score = g.score();
+		int score = g.finalScore();
 		assertEquals(20, score);
 	}
 	
@@ -49,7 +49,7 @@ class BowlingGameTest {
 		rollSpare();
 		g.roll(3);
 		rollMany(17,0);
-		int score = g.score();
+		int score = g.finalScore();
 		assertEquals(16, score);
 	}
 
@@ -59,14 +59,14 @@ class BowlingGameTest {
 		g.roll(3);
 		g.roll(4);
 		rollMany(16,0);
-		int score = g.score();
+		int score = g.finalScore();
 		assertEquals(24, score);
 	}
 	
 	@Test
 	void testPerfectGame() {
 		rollMany(12,10);
-		int score = g.score();
+		int score = g.finalScore();
 		assertEquals(300, score);
 	}
 	
@@ -74,7 +74,7 @@ class BowlingGameTest {
 	
 	//NEW TESTS ADDED
 	@Test
-	void ErrorThrowAfterEndGame() {
+	void ErrorThrownAfterEndGame() {
 		rollStrike();
 		g.roll(3);
 		g.roll(5);
