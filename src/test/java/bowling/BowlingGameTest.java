@@ -41,9 +41,16 @@ class BowlingGameTest {
 		g.roll(3);
 		rollMany(17,0);
 		int score = g.score();
-		assertEquals(16, score); //Add spare Bonus
+		assertEquals(16, score);
 	}
 
-
-
+	@Test
+	void testStrikeGame() {
+		g.roll(10);
+		g.roll(3);
+		g.roll(4);
+		rollMany(16,0);
+		int score = g.score();
+		assertEquals(24, score);
+	}
 }
