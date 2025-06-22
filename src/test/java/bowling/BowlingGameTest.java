@@ -30,5 +30,15 @@ class BowlingGameTest {
 		int score = g.score();
 		assertEquals(20, score);
 	}
+	
+	@Test
+	void testAllOneSpareGame() {
+		g.roll(5);
+		g.roll(5); //Spare
+		g.roll(3);
+		rollMany(17,0);
+		int score = g.score();
+		assertEquals(16, score); //Add spare Bonus
+	}
 
 }
