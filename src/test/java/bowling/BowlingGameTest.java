@@ -14,6 +14,10 @@ class BowlingGameTest {
 		}
 	}
 	
+	private void rollSpare() {
+		g.roll(5);
+		g.roll(5);
+	}
 	
 	@Test
 	void testGutterGame() {
@@ -32,13 +36,14 @@ class BowlingGameTest {
 	}
 	
 	@Test
-	void testAllOneSpareGame() {
-		g.roll(5);
-		g.roll(5); //Spare
+	void testSpareGame() {
+		rollSpare();
 		g.roll(3);
 		rollMany(17,0);
 		int score = g.score();
 		assertEquals(16, score); //Add spare Bonus
 	}
+
+
 
 }

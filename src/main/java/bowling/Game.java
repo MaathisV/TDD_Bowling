@@ -7,19 +7,22 @@ public class Game {
 
 	public void roll(int KnockedPins) {
 		rolls[currentRoll++] = KnockedPins;
-
 	}
-
+	
+	private boolean isSpare(int firstFrameRollIndex) {
+		return rolls[firstFrameRollIndex] + rolls[firstFrameRollIndex+1] == 10;
+	}
+		
 	public int score() {
 		int score = 0;
-		int i = 0;
+		int rollIndex = 0;
 		for (int frame = 0; frame < 10; frame++) {
-			if (rolls[i] + rolls[i+1] == 10) {
-				score += 10 + rolls[i+2];
-				i += 2;
+			if (isSpare(rollIndex)) {
+				score += 10 + rolls[rollIndex+2];
+				rollIndex += 2;
 			} else {
-				score += rolls[i] + rolls[i+1];
-				i += 2;
+				score += rolls[rollIndex] + rolls[rollIndex+1];
+				rollIndex += 2;
 			}
 		}
 		return score;
