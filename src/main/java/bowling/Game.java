@@ -6,9 +6,19 @@ public class Game {
 	private static final int NUMBER_OF_FRAMES = 10;
 	private int rolls[] = new int[21];
 	private int currentRoll = 0;
+	private boolean gameOver = false;
+
 
 	public void roll(int KnockedPins) {
+		if (gameOver) {
+			throw new IllegalStateException("Game is already over.");			
+		}
+		
 		rolls[currentRoll++] = KnockedPins;
+		if (isGameFinished()) {
+			gameOver = true;
+		}
+		
 	}
 	
 	private boolean isSpare(int firstFrameRollIndex) {
@@ -45,4 +55,32 @@ public class Game {
 		}
 		return score;
 	}
+	
+	private boolean isGameFinished() {
+	    int rollIndex = 0;
+	    int frame = 0;
+
+	    while (frame < 10 && rollIndex < currentRoll) {
+	        if (isStrike(rollIndex)) {
+	            rollIndex += 1;
+	        } else {
+	            rollIndex += 2;
+	        }
+	        frame++;
+	    }
+
+	    if (frame < 10) return false;
+
+	    // If 10 frames are played, check if bonus rolls are required
+	    int tenthFrameStart = rollIndex - (isStrike(rollIndex - 1) ? 1 : 2);
+
+	    if (isStrike(tenthFrameStart)) {
+	        return currentRoll >= rollIndex + 2;
+	    } else if (isSpare(tenthFrameStart)) {
+	        return currentRoll >= rollIndex + 1;
+	    } else {
+	        return currentRoll >= rollIndex;
+	    }
+	}
+
 }

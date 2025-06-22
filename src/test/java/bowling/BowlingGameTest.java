@@ -66,4 +66,18 @@ class BowlingGameTest {
 		int score = g.score();
 		assertEquals(300, score);
 	}
+	
+	
+	
+	//NEW TESTS ADDED
+	@Test
+	void ErrorThrowAfterEndGame() {
+		rollStrike();
+		g.roll(3);
+		g.roll(5);
+		rollSpare();
+		g.roll(8);
+		rollMany(13,2);
+	    assertThrows(IllegalStateException.class, () -> g.roll(3));
+	}
 }
